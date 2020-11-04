@@ -21,12 +21,12 @@ public class DiceManager {
     ArrayList<ArrayList<Dice>> diceRolls = new ArrayList<>();
 
     /**
-     * Creates new {@code Dice}, prints dice values and adds it to the {@code diceRols}.
+     * Creates new {@code Dice}, prints dice values and adds it to the {@code diceRolls} Array.
      *
      * @param s String in specific format aquired by passing
      *         it through {@link #prepareString}.
      */
-    public void createNewDice(String s){
+    protected ArrayList<Dice> createNewDice(String s){
         s = this.prepareString(s);
         Scanner in = new Scanner(s);
         int diceAmount = in.nextInt();
@@ -36,10 +36,10 @@ public class DiceManager {
 
         for(int i = 0; i < diceAmount; i++) {
             Dice firstDice = new Dice(diceType,diceBonus);
-            System.out.println("Roll nr " + (i+1)+ " of series"+ (vertexCount+1) + ": " + firstDice.getRoll() + "+" + firstDice.getBonus());
+            System.out.println("Roll nr " + (i+1)+ " of series"+ (vertexCount+1) + ": " + firstDice.toString());
             if (s.endsWith("A")) {
                 Dice secondDice = new Dice(diceType,diceBonus);
-                System.out.println("Roll nr " + (i+1) + ": " + secondDice.getRoll() + "+" + secondDice.getBonus());
+                System.out.println("Advantage roll nr " + (i+1) + ": " + secondDice.toString());
                 if(firstDice.getRoll()>secondDice.getRoll())
                     diceRolls.get(vertexCount).add(firstDice);
                 else
@@ -50,6 +50,7 @@ public class DiceManager {
         }
         vertexCount++;
         System.out.println();
+        return diceRolls.get(vertexCount-1);
     }
 
     /**
@@ -71,11 +72,15 @@ public class DiceManager {
     /**
      * Prints all contents of {@code diceRolls} two dimensional Array
      */
-    public void printDiceRolls(){
-        for(int i=0;i<vertexCount;i++){
-            System.out.println("Roll series nr " + (i+1) + ": ");
-            for(Dice n: diceRolls.get(i)){
-                System.out.println(n.getRoll()+"+"+n.getBonus());
+    protected void printDiceRolls() {
+        if (this.diceRolls.size() == 0)
+            System.out.println("Please roll some dice first");
+        else {
+            for (int i = 0; i < vertexCount; i++) {
+                System.out.println("Roll series nr " + (i + 1) + ": ");
+                for (Dice n : diceRolls.get(i)) {
+                    System.out.println(n.toString());
+                }
             }
         }
     }

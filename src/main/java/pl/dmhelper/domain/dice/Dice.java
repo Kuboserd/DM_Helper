@@ -24,17 +24,26 @@ public class Dice {
      *
      * @return sum of dice roll and it's bonus
      */
-    private int result(){
+    protected int result(){
         return roll+bonus;
     }
 
+    /**
+     * Overrides {@code Object} toString method
+     *
+     * @return string containing all variables
+     */
+    @Override
+    public String toString(){
+        return this.roll +"+"+this.bonus;
+    }
     /**
      * Constructor that acts like a dice
      *
      * @param roll roll value of a single dice
      * @param bonus bonus value of a single dice
      */
-    public Dice(int roll, int bonus) {
+    protected Dice(int roll, int bonus) {
         Random rand = new Random();
         this.roll = 1 + rand.nextInt(roll);
         this.bonus = bonus;
@@ -47,14 +56,5 @@ public class Dice {
      */
     public int getRoll() {
         return roll;
-    }
-
-    /**
-     * Returns bonus value from {@code Dice}
-     *
-     * @return bonus value
-     */
-    public int getBonus() {
-        return bonus;
     }
 }
